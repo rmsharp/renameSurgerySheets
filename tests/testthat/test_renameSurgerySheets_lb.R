@@ -1,20 +1,20 @@
-require(testthat, quietly = TRUE)
-require(stringr, quietly = TRUE)
-require(RODBC, quietly = TRUE)
+library(testthat, quietly = TRUE)
+library(rmsutilityr, quietly = TRUE)
+library(RODBC, quietly = TRUE)
 source("../R/renameSurgerySheets_lb.R")
 
 pn_1 <- "/Volumes/Surgery Data$//SURGERY SHEETS 2010/08-09-10   16550.pdf"
-pn_2 <-"/Volumes/Surgery Data$//SURGERY SHEETS 2011/3-15-11  19111.pdf"
-pn_3 <-"/Volumes/Surgery Data$//SURGERY SHEETS 2010/10-22-10 19231.pdf"
-pn_4 <-"/Volumes/Surgery Data$//SURGERY SHEETS 2009/5-11--09  19105.pdf" 
-pn_5 <-"/Volumes/Surgery Data$//SURGERY SHEETS 2006/08-17--06  27795.pdf"
-pn_6 <-"/Volumes/Surgery Data$//SURGERY SHEETS 2006/06--27-06  10126.pdf" 
-pn_7 <-"/Volumes/Surgery Data$//SURGERY SHEETS 2011/2-7-11 4x0293.pdf"                        
-pn_8 <-"/Volumes/Surgery Data$//SURGERY SHEETS 2011/3-25-11 13788 @ 10.45am.pdf"
-pn_9 <-"/Volumes/Surgery Data$//SURGERY SHEETS 2007/8-31-07-29008.pdf"
-pn_10 <-"/Volumes/Surgery Data$//SURGERY SHEETS 2007/8-2-07-16859.pdf"
-pn_11 <-"/Volumes/Surgery Data$//SURGERY SHEETS 2007/7-11-07-16287-glp.pdf"
-pn_12 <-"/Volumes/Surgery Data$//SURGERY SHEETS 2007/11-1-07-17977.pdf"
+pn_2 <- "/Volumes/Surgery Data$//SURGERY SHEETS 2011/3-15-11  19111.pdf"
+pn_3 <- "/Volumes/Surgery Data$//SURGERY SHEETS 2010/10-22-10 19231.pdf"
+pn_4 <- "/Volumes/Surgery Data$//SURGERY SHEETS 2009/5-11--09  19105.pdf" 
+pn_5 <- "/Volumes/Surgery Data$//SURGERY SHEETS 2006/08-17--06  27795.pdf"
+pn_6 <- "/Volumes/Surgery Data$//SURGERY SHEETS 2006/06--27-06  10126.pdf" 
+pn_7 <- "/Volumes/Surgery Data$//SURGERY SHEETS 2011/2-7-11 4x0293.pdf"                        
+pn_8 <- "/Volumes/Surgery Data$//SURGERY SHEETS 2011/3-25-11 13788 @ 10.45am.pdf"
+pn_9 <- "/Volumes/Surgery Data$//SURGERY SHEETS 2007/8-31-07-29008.pdf"
+pn_10 <- "/Volumes/Surgery Data$//SURGERY SHEETS 2007/8-2-07-16859.pdf"
+pn_11 <- "/Volumes/Surgery Data$//SURGERY SHEETS 2007/7-11-07-16287-glp.pdf"
+pn_12 <- "/Volumes/Surgery Data$//SURGERY SHEETS 2007/11-1-07-17977.pdf"
 pn_13 <- "/Volumes/Surgery Data$//SURGERY SHEETS 2008/6-03-08-9395NS.pdf"
 pn_14 <- "/Volumes/Surgery Data$//SURGERY SHEETS 2008/10-16--08-29710.pdf"
 pn_15 <- "/Volumes/Surgery Data$//SURGERY SHEETS 2005/10-07=05 17254.pdf"
@@ -78,22 +78,24 @@ test_that("extract_id() works", {
   expect_equal(extract_id(pn_15), "17254")
   expect_equal(extract_id(pn_16), "17254")
 })
-# expect_equal(sheet_name(pn_1), "20100809_A_16550.pdf")
-# expect_equal(sheet_name(pn_2), "20110315_A_19111.pdf")
-# expect_equal(sheet_name(pn_3), "20101022_A_19231.pdf")
-# expect_equal(sheet_name(pn_4), "20090511_A_19105.pdf")
-# expect_equal(sheet_name(pn_5), "20060817_A_27795.pdf")
-# expect_equal(sheet_name(pn_6), "20060627_A_10126.pdf")
-# expect_equal(sheet_name(pn_7), "20110207_A_4X0293.pdf")
-# expect_equal(sheet_name(pn_8), "20110325_A_13788.pdf")
-# expect_equal(sheet_name(pn_9), "20070831_A_29008.pdf")
-# expect_equal(sheet_name(pn_10), "20070802_A_16859.pdf")
-# expect_equal(sheet_name(pn_11), "20070711_A_16287.pdf")
-# expect_equal(sheet_name(pn_12), "20071101_A_17977.pdf")
-# expect_equal(sheet_name(pn_13), "20080603_A_9395.pdf")
-# expect_equal(sheet_name(pn_14), "20081016_A_29710.pdf")
-# expect_equal(sheet_name(pn_15), "20051007_A_17254.pdf")
-# expect_equal(sheet_name(pn_16), "20051008_A_17254.pdf")
+test_that("sheet_name() works", {
+  expect_equal(sheet_name(pn_1), "20100809_B_16550.pdf")
+  expect_equal(sheet_name(pn_2), "20110315_B_19111.pdf")
+  expect_equal(sheet_name(pn_3), "20101022_A_19231.pdf")
+  expect_equal(sheet_name(pn_4), "20090511_B_19105.pdf")
+  expect_equal(sheet_name(pn_5), "20060817_B_27795.pdf")
+  expect_equal(sheet_name(pn_6), "20060627_B_10126.pdf")
+  expect_equal(sheet_name(pn_7), "20110207_B_4X0293.pdf")
+  expect_equal(sheet_name(pn_8), "20110325_C_13788.pdf")
+  expect_equal(sheet_name(pn_9), "20070831_B_29008.pdf")
+  expect_equal(sheet_name(pn_10), "20070802_B_16859.pdf")
+  expect_equal(sheet_name(pn_11), "20070711_B_16287.pdf")
+  expect_equal(sheet_name(pn_12), "20071101_B_17977.pdf")
+  expect_equal(sheet_name(pn_13), "20080603_B_9395.pdf")
+  expect_equal(sheet_name(pn_14), "20081016_B_29710.pdf")
+  expect_equal(sheet_name(pn_15), "20051007_B_17254.pdf")
+  expect_equal(sheet_name(pn_16), "20051008_A_17254.pdf")
+})
 
 test_that("blank_fill_ids() works", {
   expect_equal(blank_fill_ids("123"), "   123")
