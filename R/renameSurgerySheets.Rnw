@@ -1,6 +1,6 @@
 <<setup_timer, echo = FALSE, include = FALSE>>=
 start_time <- proc.time()
-library(xtable, quietly=TRUE)
+library(xtable, quietly = TRUE)
 
 @
 \documentclass[12pt,a4paper,article]{memoir} % for a short document
@@ -47,7 +47,7 @@ library(xtable, quietly=TRUE)
 \begin{document}
 
 <<include=FALSE>>=
-opts_chunk$set(concordance=TRUE)
+opts_chunk$set(concordance = TRUE)
 @
 
 \maketitle
@@ -60,6 +60,9 @@ opts_chunk$set(concordance=TRUE)
 ## 
 options(continue = " ")
 options(width = 60)
+## These definitions are also used within the test script. Thus, if they
+## change here they should likely change there. They need to be defined in a 
+## function. 
 BASE_DIRECTORY <- "/Volumes/Surgery Data$"
 CAMP_DIRECTORY <- "CAMP"
 UNPROCESSED_SURGERY_SHEET_DIRECTORY <- "unprocessed_surgery_sheets"
@@ -131,9 +134,22 @@ all_files <- all_files[!(str_detect(all_files, 'Table of Contents') |
 @
 
 \section*{Identifying Duplicate Id and Date Pairs within File names}
-<<list_duplicates, echo = FALSE, results = 'asis'>>=
-list_duplicates(all_files)
+This is only a list of possible duplicates. It is possible to have more than
+one PDF generated as a surgery sheet per data for an animal, but it is 
+rare enough to have someone ensure the contents of the PDFs are infact 
+different.
 
+<<list_duplicates, echo = FALSE, results = 'asis'>>=
+results <- make_duplicate_list(all_files)
+if (is.character(results)) {
+  cat(stri_c("\n", results, "\n\n"))
+} else {
+  dup_label <- "tbl:possible-dups"
+  dup_caption <- stri_c("There are ", nrow(results), " duplicates that are 
+                        listed in Table~\\ref{", dup_label, ".\n\n")
+  cat("\n\n")
+  xt_print(results, caption = dup_caption, label = dup_label)
+}
 @
 
 \section*{Copying Files and Detecting Defective File Names}

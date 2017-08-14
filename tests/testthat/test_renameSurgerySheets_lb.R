@@ -1,6 +1,10 @@
 library(testthat, quietly = TRUE)
 library(rmsutilityr, quietly = TRUE)
 library(RODBC, quietly = TRUE)
+BASE_DIRECTORY <- "/Volumes/Surgery Data$"
+CAMP_DIRECTORY <- "CAMP"
+UNPROCESSED_SURGERY_SHEET_DIRECTORY <- "unprocessed_surgery_sheets"
+
 source("../R/renameSurgerySheets_lb.R")
 
 pn_1 <- "/Volumes/Surgery Data$//SURGERY SHEETS 2010/08-09-10   16550.pdf"
