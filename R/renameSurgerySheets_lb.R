@@ -3,6 +3,8 @@ library(RODBC)
 library(stringi)
 library(animalr, quietly = TRUE)
 
+#' @import stringi
+
 extract_filename <- function(path_name) {
   slash_list <- stri_locate_all_fixed(path_name, "/")
   if (is.na(slash_list[[1]][1])) {
@@ -73,7 +75,7 @@ make_filename <- function(path_name, sequence_str) {
 
 make_filename_A <- function(path_name) make_filename(path_name, 'A')
 
-make_filenames <- function(file_list, sequence_str) {
+make_filenames <- function(file_list) {
   sapply(file_list, make_filename_A, simplify = "array")
 }
 
@@ -126,11 +128,12 @@ is_procedure_date <- function(conn, id, date_str) {
   }
 }
 
-
+#' @import rmsutilityr
+#' 
 is_surgery_sheet <- function(conn, file_path) {
   id <- blank_fill_ids(extract_id(file_path))
   date_str <- extract_date(file_path)
-  return (is_animal(conn, id) & is_procedure_date(conn, id, date_str))
+  return(is_animal(conn, id) & is_procedure_date(conn, id, date_str))
 }
 
 copy_file <- function(file) {
@@ -166,36 +169,29 @@ move_file <- function(file) {
     return(status)
   }
 }
+#' List any possible file duplicates based on animal name and date.
+#' 
+#' This is only a list of possible duplicates. It is possible to have more than
+#' one PDF generated as a surgery sheet per data for an animal, but it is 
+#' rare enough to have someone ensure the contents of the PDFs are infact 
+#' different.
+#' @param all_files character vector with file names of surgery sheets.
+#' 
 list_duplicates <- function(all_files) {
-  possible_duplicate <- FALSE
-  all_files_cnt <- length(all_files)
-  if (all_files_cnt >= 2) {
-    paths <- list()
-    all_files_cnt <- length(all_files)
-    filenames <- make_filenames(all_files, "A")
-    for (i in 1:(all_files_cnt - 1)) {
-      first_filename <- make_filename(all_files[i], 'A')
-      duplicates <- 1
-      paths[duplicates] <- all_files[i]
-      for (j in (i + 1):all_files_cnt) {
-        if (filenames[j] == first_filename) {
-          duplicates <- duplicates + 1
-          paths[duplicates] <- all_files[j]
-        }
-      }
-      if (duplicates > 1) {
-        cat("The following files are potential duplicates.")
-        for (duplicate in 1:duplicates) {
-          cat(stri_c('        ', paths[[duplicate]], ".\\"))                                                                                                                       
-        }
-        posible_duplicate <- TRUE
-      }
-    }      
+  files_df <- data.frame(org_name = all_files, new_name = make_filenames)
+  files_df <- files_df[order(files_df$new_name), ]
+  dups_df <- files_df[duplicated(files_df$new_name), ]
+  if (nrow(tnp_dups_df) > 0) {
+    dups_df <- dups_df[!duplicated(dups_df$new_name), ]
+    result <- data.frame()
+    for (file in dups_df$new_name) {
+      result <- rbind(result, dups_df[dups$new_name == file, ])
+    }
+    
+  } else { 
+    result <- "There are no duplicates."
   }
-  if (!possible_duplicate) { 
-    cat("There are no duplicates.\\")
-  }
-  cat("\\")
+  result
 }
 rename_and_move_files <- function(conn, all_files) {
   moved_files <- character(length(all_files))
