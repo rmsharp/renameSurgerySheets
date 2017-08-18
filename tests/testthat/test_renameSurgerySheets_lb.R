@@ -127,3 +127,16 @@ test_that("is_animal() works", {
   expect_true(is_animal(conn, ' 12345'))
   odbcClose(conn)
 })
+test_that("rename_report() works", {
+  old_name <- "renameSurgerySheets.pdf"
+  if (file.exists(old_name)) {
+    stop("Test file was already present")
+  } else {
+    file.create(old_name)
+    expected_name <- get_dated_filename("Surgery_Sheet_Report.pdf")
+    new_name <- rename_report()
+    expect_equal(expected_name, new_name)
+    file.remove(old_name)
+    file.remove(new_name)
+  }
+})
