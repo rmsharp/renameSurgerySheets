@@ -71,7 +71,7 @@ UNPROCESSED_SURGERY_SHEET_DIRECTORY <- "unprocessed_surgery_sheets"
 
 
 <<include=FALSE>>=
-opts_chunk$set(tidy=FALSE)
+opts_chunk$set(tidy = FALSE)
 
 @
 
