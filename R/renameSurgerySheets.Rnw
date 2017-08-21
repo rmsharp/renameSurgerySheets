@@ -55,7 +55,7 @@ opts_chunk$set(concordance = TRUE)
 \setcounter{tocdepth}{2}
 <<echo = FALSE>>=
 ## Try automating this from the command line with
-## Rscript -e "library(knitr); knit("renameSurgerySheets.Rnw")
+## R CMD BATCH renameReport.R
 ## Then rename the output file "renameSurgerySheets.pdf" with a date time stamp.
 ## 
 options(continue = " ")
