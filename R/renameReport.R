@@ -1,4 +1,4 @@
 library(knitr)
-knit("renameSurgerySheets.Rnw")
-source("renameSurgerySheets_lb.R")
+library(renameSurgerySheets)
+knit("../vignettes/renameSurgerySheets.Rnw")
 cat(rename_report())
