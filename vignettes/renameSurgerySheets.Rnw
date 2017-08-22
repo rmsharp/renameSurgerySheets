@@ -134,7 +134,7 @@ rare enough to have someone ensure the contents of the PDFs are infact
 different.
 
 <<list_duplicates, echo = FALSE, results = 'asis'>>=
-results <- make_duplicate_list(all_files)
+results <- list_duplicates(all_files)
 if (is.character(results)) {
   cat(stri_c("\n", results, "\n\n"))
 } else {
