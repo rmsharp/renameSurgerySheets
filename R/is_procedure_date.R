@@ -4,7 +4,8 @@
 #' maintenance or research procedure of the indicated date.
 #'
 #' This should be updated to look for surgeries when possible.
-#'
+#' @return logical TRUE is the date provided corresponds to a procedure
+#' for the animal indicated.
 #' @param conn database connection object
 #' @param id character vector of length one having the ID of the animal
 #' @param date_str characer vector of length one having the date of the surgery.

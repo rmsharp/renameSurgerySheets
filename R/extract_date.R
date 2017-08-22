@@ -1,6 +1,6 @@
 #' Extract date from full path file name
 #'
-#' @returns Character vector of length 1 having the date in \%m-\%d-\%Y format
+#' @return Character vector of length 1 having the date in \%m-\%d-\%Y format
 #' extracted from the file name.
 #' @param path_name character vector of length one having the path and basename
 #' of the file.

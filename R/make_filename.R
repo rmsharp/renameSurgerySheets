@@ -1,6 +1,6 @@
 #' Make new sequenced filename from full path name
 #'
-#' @returns Character vector of length one having the properly sequenced
+#' @return Character vector of length one having the properly sequenced
 #' file name.
 #' @param path_name character vector of length one having the path and basename
 #' of the file.

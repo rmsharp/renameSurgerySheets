@@ -10,9 +10,10 @@
 #' @export
 move_file <- function(file) {
   year_str <- stri_sub(extract_date(file), 1, 4)
-  oldfilename <- stri_c(BASE_DIRECTORY, "/", UNPROCESSED_SURGERY_SHEET_DIRECTORY,
-                        "/", file)
-  subdirectory <- stri_c(BASE_DIRECTORY,"/SURGERY SHEETS ", year_str, "/")
+  oldfilename <- stri_c(get_directory("BASE"), "/",
+                        get_directory("UNPROCESSED"), "/", file)
+  subdirectory <- stri_c(get_directory("BASE"),"/SURGERY SHEETS ",
+                         year_str, "/")
   if (!file.exists(subdirectory))
     dir.create(subdirectory)
   newfilename <- stri_c(subdirectory, file)

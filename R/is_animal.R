@@ -1,10 +1,10 @@
 #' Is ID an animal ID
-#' 
-#' @returns TRUE if the \code{id} argument represents an animal ID.
-#' 
+#'
+#' @return TRUE if the \code{id} argument represents an animal ID.
+#'
 #' @param conn database connection object
 #' @param id character vector of length one having the ID of the animal
-#' 
+#'
 #' @import RODBC
 #' @import stringi
 #' @export
