@@ -1,6 +1,5 @@
 <<setup_timer, echo = FALSE, include = FALSE>>=
 start_time <- proc.time()
-library(xtable, quietly = TRUE)
 
 @
 \documentclass[12pt,a4paper,article]{memoir} % for a short document
@@ -63,6 +62,7 @@ options(width = 60)
 library(rmsutilityr)
 library(RODBC)
 library(stringi)
+library(xtable, quietly = TRUE)
 library(renameSurgerySheets)
 
 @
@@ -117,7 +117,7 @@ conn <- odbcConnect('frogstar-vortex-animal-sa')
 @
 
 <<get_file_names, echo = FALSE>>=
-path <- str_c(get_directory("BASE"), "/", get_directory("UNPROCESSED"))
+path <- stri_c(get_directory("BASE"), "/", get_directory("UNPROCESSED"))
 all_files <- list.files(path = path, recursive = TRUE, pattern = '.pdf',
               all.files = FALSE)
 total_number_of_files <- length(all_files)
