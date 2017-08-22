@@ -57,15 +57,13 @@ opts_chunk$set(concordance = TRUE)
 ## Try automating this from the command line with
 ## R CMD BATCH renameReport.R
 ## Then rename the output file "renameSurgerySheets.pdf" with a date time stamp.
-## 
+##
 options(continue = " ")
 options(width = 60)
-## These definitions are also used within the test script. Thus, if they
-## change here they should likely change there. They need to be defined in a 
-## function. 
-BASE_DIRECTORY <- "/Volumes/Surgery Data$"
-CAMP_DIRECTORY <- "CAMP"
-UNPROCESSED_SURGERY_SHEET_DIRECTORY <- "unprocessed_surgery_sheets"
+library(rmsutilityr)
+library(RODBC)
+library(stringi)
+library(renameSurgerySheets)
 
 @
 
@@ -76,45 +74,41 @@ opts_chunk$set(tidy = FALSE)
 @
 
 \section*{Introduction}
-The goal of this report is to describe the process and purpose of renaming the 
-surgery sheets files that are in PDF format and to report the results of 
-running this script, which copies the files from 
-\emph{//seldon/surgery data/unprocessed_surgery_sheets/} under the new 
-file name to 
-\emph{//seldon/surgery data/CAMP/} and moves the successfully copied files to a 
+The goal of this report is to describe the process and purpose of renaming the
+surgery sheets files that are in PDF format and to report the results of
+running this script, which copies the files from
+\emph{//seldon/surgery data/unprocessed_surgery_sheets/} under the new
+file name to
+\emph{//seldon/surgery data/CAMP/} and moves the successfully copied files to a
 directory named \mbox{\emph{//seldon/surgery data/SURGERY SHEETS YYYY}}
 where YYYY is
-the year part of the surgery sheet date. 
+the year part of the surgery sheet date.
 
 These files are to all be named
-with a common convention so that they can be found from within CAMP. The 
-convention is \mbox{Id_sequence_letter_YYYYMMDD.pdf}, where Id is the animal Id, 
-an underscore character,  a capitalized letter 
-of the alphabet, an underscore character, and finally 
-\mbox{YYYYMMDD} is the four character year, two numeral month, and two numeral day 
-indicators. 
+with a common convention so that they can be found from within CAMP. The
+convention is \mbox{Id_sequence_letter_YYYYMMDD.pdf}, where Id is the animal Id,
+an underscore character,  a capitalized letter
+of the alphabet, an underscore character, and finally
+\mbox{YYYYMMDD} is the four character year, two numeral month, and two numeral day
+indicators.
 If there are more than one surgery sheet for an animal
 on any one day, the capitalized letter is incremented through the alphabet
 from A to Z. If there are more than 26 surgeries for an animal within
 one day, the capitalized letter will be replaced by an incremented integer
-starting with 27 and continuing with subsequent whole numbers up to 1000. 
+starting with 27 and continuing with subsequent whole numbers up to 1000.
 At the 1001 sheet for the same animal on the same day, the program stops
-with an error message indicating what happened. Obviously, we do not 
-anticipate using many of the letters much less the integers. Thus, the 
+with an error message indicating what happened. Obviously, we do not
+anticipate using many of the letters much less the integers. Thus, the
 sequence would go as follow:
-1X0123_A_20110203.pdf, 1X0123_B_20110203.pdf, ... , 1X0123_Z_20110203.pdf, 
+1X0123_A_20110203.pdf, 1X0123_B_20110203.pdf, ... , 1X0123_Z_20110203.pdf,
 1X0123_27_20110203, 1X0123_28_20110203, ... , 1X0123_1000_20110203
 
 %\section*{Function Definition Section with Unit Tests}
 <<label = instructions, echo = FALSE>>=
 # Create the pdf version of this document using the following two command lines
-# from within the directory where this file exists. 
+# from within the directory where this file exists.
 ## Sweave.sh rename_surgery_sheets.Rnw
 ## pdflatex rename_surgery_sheets.tex
-@
-<<setup, echo = FALSE, include = FALSE>>=
-source("renameSurgerySheets_lb.R")
-
 @
 <<connect_to_database, echo = FALSE>>=
 conn <- odbcConnect('frogstar-vortex-animal-sa')
@@ -123,20 +117,20 @@ conn <- odbcConnect('frogstar-vortex-animal-sa')
 @
 
 <<get_file_names, echo = FALSE>>=
-path <- str_c(BASE_DIRECTORY, "/", UNPROCESSED_SURGERY_SHEET_DIRECTORY)
-all_files <- list.files(path = path, recursive = TRUE, pattern = '.pdf', 
+path <- str_c(get_directory("BASE"), "/", get_directory("UNPROCESSED"))
+all_files <- list.files(path = path, recursive = TRUE, pattern = '.pdf',
               all.files = FALSE)
 total_number_of_files <- length(all_files)
-all_files <- all_files[!(str_detect(all_files, 'Table of Contents') |
-           str_detect(all_files, 'rename_surgery_sheets') |
-           str_detect(all_files, 'pdf_permits_do_not_delete'))]
+all_files <- all_files[!(stri_detect_fixed(all_files, 'Table of Contents') |
+           stri_detect_fixed(all_files, 'rename_surgery_sheets') |
+           stri_detect_fixed(all_files, 'pdf_permits_do_not_delete'))]
 
 @
 
 \section*{Identifying Duplicate Id and Date Pairs within File names}
 This is only a list of possible duplicates. It is possible to have more than
-one PDF generated as a surgery sheet per data for an animal, but it is 
-rare enough to have someone ensure the contents of the PDFs are infact 
+one PDF generated as a surgery sheet per data for an animal, but it is
+rare enough to have someone ensure the contents of the PDFs are infact
 different.
 
 <<list_duplicates, echo = FALSE, results = 'asis'>>=
@@ -145,7 +139,7 @@ if (is.character(results)) {
   cat(stri_c("\n", results, "\n\n"))
 } else {
   dup_label <- "tbl:possible-dups"
-  dup_caption <- stri_c("There are ", nrow(results), " duplicates that are 
+  dup_caption <- stri_c("There are ", nrow(results), " duplicates that are
                         listed in Table~\\ref{", dup_label, ".\n\n")
   cat("\n\n")
   xt_print(results, caption = dup_caption, label = dup_label)
@@ -157,15 +151,15 @@ if (is.character(results)) {
 sheet_move <- rename_and_move_files(conn, all_files)
 
 @
-There were \Sexpr{total_number_of_files} files. Of these, 
+There were \Sexpr{total_number_of_files} files. Of these,
 \Sexpr{sheet_move$surgery_sheet_count} are potentially surgery sheets based
 on the structure of the file names.
-Of the potential surgery sheet files, \Sexpr{sheet_move$bad_file_count} 
-had file names 
+Of the potential surgery sheet files, \Sexpr{sheet_move$bad_file_count}
+had file names
 that do not match data within the database. Thus, I attempted to copy
-\Sexpr{sheet_move$surgery_sheet_count - sheet_move$bad_file_count} 
+\Sexpr{sheet_move$surgery_sheet_count - sheet_move$bad_file_count}
 sheets of which
-\Sexpr{sheet_move$failed_to_copy_count} failed to copy and 
+\Sexpr{sheet_move$failed_to_copy_count} failed to copy and
 \Sexpr{with(sheet_move, surgery_sheet_count - bad_file_count - failed_to_copy_count)}
 were successfully copied over to seldon.
 
@@ -174,7 +168,7 @@ were successfully copied over to seldon.
 if (length(sheet_move$moved_files) > 0) {
   moved_files_df <- data.frame(sheet_move$moved_files)
   names(moved_files_df) <- "Successfully Moved Files"
-  xt_print(moved_files_df, 
+  xt_print(moved_files_df,
            caption = "Successfully copied, renamed, and moved surgery sheets.",
            label = "tbl:moved-files")
 }

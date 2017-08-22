@@ -1,10 +1,13 @@
 #' Extract animal ID from full path file name
-#' 
+#'
 #' Uses several huristic techniques based on historical data to isolate the
 #' animal ID.
-#' 
+#'
 #' @returns Character vector of length 1 having the date in \%m-\%d-\%Y format
 #' extracted from the file name.
+#' @param path_name character vector of length one having the path and basename
+#' of the file.
+#'
 #' @import stringi
 #' @export
 extract_id <- function(path_name) {

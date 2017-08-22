@@ -1,7 +1,10 @@
 #' Extract date from full path file name
-#' 
+#'
 #' @returns Character vector of length 1 having the date in \%m-\%d-\%Y format
 #' extracted from the file name.
+#' @param path_name character vector of length one having the path and basename
+#' of the file.
+#'
 #' @import stringi
 #' @export
 extract_date <- function(path_name) {
@@ -17,7 +20,7 @@ extract_date <- function(path_name) {
     stop <- dash_ptr[[1]][[3]] - 1
   }
   date_str <- stri_trim_both(stri_sub(filename, 1, stop))
-  if (is.na(any(stri_locate_first_fixed(stri_sub(date_str, stop - 3, stop), 
+  if (is.na(any(stri_locate_first_fixed(stri_sub(date_str, stop - 3, stop),
                                         c(' ', '-'))))) {
     date <- as.Date(date_str, format = "%m-%d-%Y")
   } else {

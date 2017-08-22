@@ -7,3 +7,6 @@ R/*
 !R/*.R
 reports/*
 tests/.MySCM*
+vignettes/*
+vignettes/*.Rnw
+NAMESPACE

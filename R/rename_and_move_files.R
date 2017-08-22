@@ -1,13 +1,16 @@
 #' Rename and move files
-#' 
+#'
 #' Takes a list of surgery sheet file names, looks to see if there is an
-#' animal procedure on the date corresponding to the date indicated by the 
+#' animal procedure on the date corresponding to the date indicated by the
 #' filename. If there is the file is copied to the appropriate year directory
 #' and renamed.
-#' 
+#'
 #' @return A list containing \code{moved_files}, \code{bad_file_count},
 #' \code{surgery_sheet_count}, and the \code{failed_to_copy_count}.
-#' 
+#'
+#' @param conn database connection object
+#' @param all_files character vector of one or more files
+#'
 #' @import stringi
 #' @export
 rename_and_move_files <- function(conn, all_files) {
@@ -34,9 +37,9 @@ rename_and_move_files <- function(conn, all_files) {
       }
     }
     moved_files <- moved_files[!moved_files == '']
-  } 
-  
-  list(moved_files = moved_files, bad_file_count = bad_file_count, 
+  }
+
+  list(moved_files = moved_files, bad_file_count = bad_file_count,
        surgery_sheet_count = surgery_sheet_count,
        failed_to_copy_count = failed_to_copy_count)
 }
