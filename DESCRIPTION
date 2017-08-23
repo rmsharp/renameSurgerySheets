@@ -1,8 +1,8 @@
 Package: renameSurgerySheets
 Type: Package
 Title: Rename Surgery Sheets
-Version: 0.1.01
-Date: 2017-08-21
+Version: 1.0.0
+Date: 2017-08-23
 Author: R. Mark Sharp
 Maintainer: <msharp@txbiomed.org>
 Description: Renames surgery sheets so that they can be accesses by CAMP. 
