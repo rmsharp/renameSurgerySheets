@@ -8,7 +8,9 @@ R/*
 reports/*
 tests/.MySCM*
 vignettes/*
-vignettes/*.Rnw
+!vignettes/*.Rnw
+!vignettes/*.R
 NAMESPACE
 *.tex
 man/*
+args.txt
