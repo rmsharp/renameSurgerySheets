@@ -1,7 +1,7 @@
 library(testthat, quietly = TRUE)
-#library(rmsutilityr, quietly = TRUE)
+library(rmsutilityr, quietly = TRUE)
 library(RODBC, quietly = TRUE)
-library(renameSurgerySheets)
+#library(renameSurgerySheets)
 
 pn_1 <- "/Volumes/Surgery Data$//SURGERY SHEETS 2010/08-09-10   16550.pdf"
 pn_2 <- "/Volumes/Surgery Data$//SURGERY SHEETS 2011/3-15-11  19111.pdf"
@@ -114,14 +114,20 @@ test_that("is_animal() works", {
 test_that("rename_report() works", {
   skip_on_travis()
   old_name <- "renameSurgerySheets.pdf"
-  if (file.exists(old_name)) {
-    stop("Test file was already present")
-  } else {
+  if (!file.exists(old_name)) {
     file.create(old_name)
-    expected_name <- get_dated_filename("Surgery_Sheet_Report.pdf")
-    new_name <- rename_report()
-    expect_equal(expected_name, new_name)
-    #file.remove(old_name)
-    file.remove(new_name)
   }
+  expected_name <- get_dated_filename("Surgery_Sheet_Report.pdf")
+  new_name <- rename_report()
+  expect_equal(expected_name, new_name)
+  result <- tryCatch({
+    file.remove(old_name)
+  }, warning = function(w) {
+    NULL #cat(paste0(w, "\n")) ## Never seen during testing.
+  }, error = function(e) {
+    NULL #cat(paste0(e, "\n")) ## If you want to see what happens
+  }, finally = {NULL}
+  )
+  file.remove(new_name)
 })
+
