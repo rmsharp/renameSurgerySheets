@@ -12,14 +12,14 @@
 #' @export
 get_next_sequence_char <- function(path_name) {
   for (i in 1:26) {
-    if (file.exists(stri_c(stri_c(BASE_DIRECTORY, "/", CAMP_DIRECTORY, "/",
+    if (file.exists(stri_c(stri_c(get_directory("BASE"), "/", get_directory("CAMP"), "/",
                                   make_filename(path_name, LETTERS[[i]])))))
       next
     else
       return(LETTERS[[i]])
   }
   for (i in 27:1000) {
-    if (file.exists(stri_c('CAMP/', make_filename(path_name, stri_c(i)))))
+    if (file.exists(stri_c(get_directory("CAMP"), "/", make_filename(path_name, stri_c(i)))))
       next
     else
       return(stri_c(i))

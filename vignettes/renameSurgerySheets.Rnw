@@ -107,11 +107,11 @@ sequence would go as follow:
 <<label = instructions, echo = FALSE>>=
 # Create the pdf version of this document using the following two command lines
 # from within the directory where this file exists.
-## Sweave.sh rename_surgery_sheets.Rnw
+## knitr::knit rename_surgery_sheets.Rnw
 ## pdflatex rename_surgery_sheets.tex
 @
 <<connect_to_database, echo = FALSE>>=
-conn <- odbcConnect('frogstar-vortex-animal-sa')
+conn <- odbcConnect("frogstar-vortex-animal")
 #conn <- odbcConnect('hellcat-miami-animal-sa')
 
 @

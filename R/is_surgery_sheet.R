@@ -7,7 +7,7 @@
 #' The contents of the file are not examined in any way.
 #' @return TRUE if the filename contains a valid procedure date and animal ID.
 #' @param conn database connection object
-#' @param path_name character vector of length one having the path and basename
+#' @param file_path character vector of length one having the path and basename
 #' of the file.
 #' @import rmsutilityr
 #' @export

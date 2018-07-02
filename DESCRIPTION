@@ -1,8 +1,8 @@
 Package: renameSurgerySheets
 Type: Package
 Title: Rename Surgery Sheets
-Version: 1.0.0
-Date: 2017-08-23
+Version: 1.0.1
+Date: 2017-07-01
 Author: R. Mark Sharp
 Maintainer: <msharp@txbiomed.org>
 Description: Renames surgery sheets so that they can be accesses by CAMP. 
@@ -13,10 +13,10 @@ Depends:
 Imports:
     rmsutilityr,
     RODBC,
-    stringi
+    stringi,
+    testthat
 Suggests:
     knitr,
-    testthat
 VignetteBuilder: knitr
 Encoding: UTF-8
 License: GPL-2
