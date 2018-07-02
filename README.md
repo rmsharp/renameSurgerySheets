@@ -1,5 +1,5 @@
 
-[![Rdoc](http://www.rdocumentation.org/badges/version/roxygen2)](http://www.rdocumentation.org/packages/roxygen2) [![Build Status](https://travis-ci.org/rmsharp/nprcmanager.svg?branch=master)](https://travis-ci.org/rmsharp/nprcmanager) [![codecov](https://codecov.io/gh/rmsharp/nprcmanager/branch/master/graph/badge.svg)](https://codecov.io/gh/rmsharp/nprcmanager) [![Rdoc](http://www.rdocumentation.org/badges/version/RDocumentation)](http://www.rdocumentation.org/packages/RDocumentation) [![Rdoc](http://www.rdocumentation.org/badges/version/nprcmanager)](http://www.rdocumentation.org/packages/gh/rmsharp/nprcmanager) <!-- README.md is generated from README.Rmd. Please edit that file -->
+[![Rdoc](http://www.rdocumentation.org/badges/version/roxygen2)](http://www.rdocumentation.org/packages/roxygen2) [![Build Status](https://travis-ci.org/rmsharp/renameSurgerySheets.svg?branch=master)](https://travis-ci.org/rmsharp/renameSurgerySheets) [![codecov](https://codecov.io/gh/rmsharp/renameSurgerySheetsr/branch/master/graph/badge.svg)](https://codecov.io/gh/rmsharp/renameSurgerySheets) [![Rdoc](http://www.rdocumentation.org/badges/version/RDocumentation)](http://www.rdocumentation.org/packages/RDocumentation) [![Rdoc](http://www.rdocumentation.org/badges/version/renameSurgerySheets)](http://www.rdocumentation.org/packages/gh/rmsharp/renameSurgerySheets) <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 renameSurgerySheets
 ===================
@@ -57,3 +57,5 @@ Once you are in the `R` directory, the following two command lines will produce 
 
     Rscript -e "library(knitr); knit('renameSurgerySheets.Rnw')"
     pdflatex renameSurgerySheets.tex
+
+The script *renameReport.R* worked from the command line of a terminal session that could be used with a cron job to create the report, time stamp the report name, and email it out. It will take a bit of customization to make it work for someone else. Search for TERRY and msharp to find places to edit.
