@@ -1,6 +1,7 @@
 #' Returns FALSE if database connection is not avaiable.
 #'
 #' Currently this is a stub
+#' @import stringi
 #' @import testthat
 #' @export
 skip_if_no_files_mounted <- function() {
