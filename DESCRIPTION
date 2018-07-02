@@ -17,6 +17,8 @@ Imports:
     testthat
 Suggests:
     knitr,
+    roxygen2 (>= 6.0.0),
+    testthat
 VignetteBuilder: knitr
 Encoding: UTF-8
 License: GPL-2
