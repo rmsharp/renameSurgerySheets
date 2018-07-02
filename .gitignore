@@ -12,5 +12,4 @@ vignettes/*
 !vignettes/*.R
 NAMESPACE
 *.tex
-man/*
 args.txt
