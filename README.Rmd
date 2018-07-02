@@ -88,6 +88,6 @@ Rscript -e "library(knitr); knit('renameSurgerySheets.Rnw')"
 pdflatex renameSurgerySheets.tex
 ```
 
-The script _renameReport.R_ worked from the command line of a terminal session that could be used with a cron job to create the report, time stamp the report name, and email it out. It will take a bit of customization to make it work for someone else. Search for TERRY and msharp to find places to edit.
+The script _renameReport.R_, which is inside the __exec__ directory, worked from the command line of a terminal session that could be used with a cron job to create the report, time stamp the report name, and email it out. It will take a bit of customization to make it work for someone else. Search for TERRY and msharp to find places to edit.
 
 

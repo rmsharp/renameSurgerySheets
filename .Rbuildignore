@@ -2,7 +2,6 @@
 ^\.Rproj\.user$
 ^.@\.log$
 vignettes/*
-R/renameReport.R
 ^README\.Rmd$
 ^README-.*\.png$
 .travis.yml
