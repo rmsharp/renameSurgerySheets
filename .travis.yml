@@ -8,6 +8,8 @@ r:
 r_packages:
     - devtools
 r_github_packages:
+r_github_packages:
+    - rmsharp/rmsutilityr
     - r-lib/rcmdcheck
     - jimhester/lintr
     - jimhester/covr
