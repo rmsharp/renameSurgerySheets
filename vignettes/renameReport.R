@@ -21,10 +21,8 @@ system(stri_c("pdflatex ", tex_file, "\n"))
 report_name <- rename_report(path = "../reports/")
 cat(report_name, file = "args.txt", append = TRUE)
 library(mailR)
-from <- "msharp@TxBiomed.org"
-#to <- "rmsharp@me.com"
-#cc <- NULL
-to <- c("Debbie Christian <debbiec@txbiomed.org>", "msharp@txbiomed.org")
+from <- "thawkins@TxBiomed.org"
+to <- c("Debbie Christian <debbiec@txbiomed.org>", "thawkins@txbiomed.org")
 cc <- c("Karen Rice <krice@txbiomed.org>", "Scott Rouse <srouse@txbiomed.org>")
 subject <- "Surgery Sheet Renaming Report"
 body <- stri_c("Attached is the most recent surgery sheet renaming report (",
@@ -38,8 +36,8 @@ html <- FALSE # A boolean indicating whether the body of the email should
               # be parsed as HTML.
 inline <- FALSE # A boolean indicating whether images in the HTML file
                 # should be embedded inline.
-smtp <- list(host.name = "mail.txbiomed.org", port = 25, user.name = "msharp",
-             passwd = "far5thing", tls = TRUE)
+smtp <- list(host.name = "mail.txbiomed.org", port = 25, user.name = "thawkins",
+             passwd = "TERRYPASSWORD", tls = TRUE)
 authenticate = TRUE # A boolean variable to indicate whether authorization is
                     # required to connect to the SMTP server.
                     # # If set to true, see details on parameters required
