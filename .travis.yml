@@ -9,11 +9,9 @@ r_packages:
     - devtools
     - covr
 r_github_packages:
-r_github_packages:
     - rmsharp/rmsutilityr
     - r-lib/rcmdcheck
     - jimhester/lintr
-    - jimhester/covr
 before_install:
  - Rscript -e 'install.packages("stringi", lib="/home/travis/R-bin/lib/R/library/")'
 script:
