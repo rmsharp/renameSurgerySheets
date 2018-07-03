@@ -1,6 +1,6 @@
 library(rmsutilityr, quietly = TRUE)
 library(RODBC, quietly = TRUE)
-#library(renameSurgerySheets)
+library(stringi)
 
 pn_1 <- "/Volumes/Surgery Data$//SURGERY SHEETS 2010/08-09-10   16550.pdf"
 pn_2 <- "/Volumes/Surgery Data$//SURGERY SHEETS 2011/3-15-11  19111.pdf"
