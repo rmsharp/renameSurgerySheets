@@ -7,9 +7,9 @@ r:
 r_packages:
     - devtools
     - covr
+    - rcmdcheck
 r_github_packages:
     - rmsharp/rmsutilityr
-    - r-lib/rcmdcheck
     - jimhester/lintr
 script:
     - R -e 'r <- rcmdcheck::rcmdcheck(".", args = c("--no-manual")); devtools::test(); quit(save = "no", status = if (length(c(r$errors, r$warnings)) > 0) { 1 } else { 0 }, runLast = FALSE)'
