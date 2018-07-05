@@ -11,8 +11,6 @@ r_github_packages:
     - rmsharp/rmsutilityr
     - r-lib/rcmdcheck
     - jimhester/lintr
-before_install:
- - Rscript -e 'install.packages("stringi", lib="/home/travis/R-bin/lib/R/library/")'
 script:
     - R -e 'r <- rcmdcheck::rcmdcheck(".", args = c("--no-manual")); devtools::test(); quit(save = "no", status = if (length(c(r$errors, r$warnings)) > 0) { 1 } else { 0 }, runLast = FALSE)'
 after_success:
